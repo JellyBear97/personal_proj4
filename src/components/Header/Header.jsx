@@ -4,6 +4,9 @@ import { styled } from 'styled-components';
 import { auth } from '../../firebase';
 import { signOut } from 'firebase/auth';
 
+// 사용자 인증 정보
+import { onAuthStateChanged } from 'firebase/auth';
+
 const Header = () => {
   const navigate = useNavigate();
   const [toggleUserNav, setToggleUserNav] = useState(false);
