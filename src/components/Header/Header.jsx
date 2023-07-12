@@ -1,10 +1,20 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
+import { auth } from '../../firebase';
+import { signOut } from 'firebase/auth';
 
 const Header = () => {
   const navigate = useNavigate();
   const [toggleUserNav, setToggleUserNav] = useState(false);
+  const logOut = async e => {
+    e.preventDefault();
+    await signOut(auth);
+    alert('로그아웃 되셨습니다.');
+    navigate('/');
+  };
+
+  // const logOut
   return (
     <StNav>
       <span
@@ -37,12 +47,7 @@ const Header = () => {
             </div>
           </StUserInfo>
           <Link to={`/my-space`}>MY SPACE</Link>
-          <button
-            onClick={() => {
-              navigate('/');
-            }}>
-            로그아웃
-          </button>
+          <button onClick={logOut}>로그아웃</button>
         </StUserNav>
       )}
     </StNav>
