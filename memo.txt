@@ -1,0 +1,86 @@
+USER 저장
+* 회원가입은 firebase 이용하고 있음. 
+* user 확인만 firebase로 하고, user 정보는 json-server 이용할 예정
+  - firebase 사용이유 :  현재 로그인 중인지 아닌지 확인 가능
+  - 변하지 않는(혹은 거의 변할일 없는) uid, email, password, 사용자 이름 
+  - 서버를 두개나 쓰는거라...찝찝하긴한데 일단..
+* 회원가입승인시 -> userCredential 받아올 때 json-server user도 업데이트!!
+  - userCredential에서 받아올 것 : uid, email, (이름)
+  - 더 넣어줄거 : image, topCetagory id{midCategoryname, midCategoryid, midCategoryDesc,}
+
+이미지 저장
+* firebase 사용 안하고 image 저장할 수 있다고 해서 일단 시도
+
+각 유저마다 특이적으로 가지고있는 카테고리는 고유번호를 부여해서 저장을 해주는게 좋을 듯...
+posts database에 다 담을 건데 user마다 같은 category이름으로 만든 post가 있을 거라 user & 이름 확인을 동시에 filter해주는 게 아니라 고유 id만 갖고 있으면 찾아오기가 쉬울 것 같아서 고유 id 부여하기로 결정!
+
+// 사용자 인증정보
+Auth는 이용중인 모든 페이지에 포함된 header에서 확인?가져오기!그럼 모든 페이지에서 로그인 중인 사용자가 누군지 알겠지... 원래는 사용자 컴퓨터에 있는 곳에서 가져오남..?
+
+{
+  "posts": [
+    {
+      "id": 1,
+      "ownerId": "typicode",
+      "topCategoryId" :  1,
+      "topCategoryName" : "HOUSE" ,
+      "midCategoryId" : 1,
+      "midCategoryName": "bathroom",
+      "midCategoryDesc": "bathroom",
+      "postBody" : "",
+      "postImage" : "",
+      "postExtraBody" : [
+        {"id" : "", "postUserMemo" : ""},
+        {"id" : "", "postUserMemo" : ""}
+      ]
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "users": [
+    {
+      "id": "uid",
+      "userName": "젤리곰",
+      "email": "jieun@jellybear.com",
+      "image": "https://i.pinimg.com/736x/53/7e/f5/537ef59499259ba707068742f91a10f8.jpg",
+      "topCategory": [
+        {
+          "topCategoryName": "HOUSE",
+          "id": "shortid",
+          "midCategory": [
+            {
+              "midCategoryName": "bathroom",
+              "id": "shortid",
+              "midCategoryDesc": "하하"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+
+
+
+
+user 기본 이미지 : https://cdn-icons-png.flaticon.com/512/552/552721.png
+
+
+
+
+
+1. 일단 회원가입시 user정보 json-server에 넣는 것부터 시작
+2. header userNav 바꾸기(연결)
+3. 자기 홈으로 이동(특이적 페이지 연결)
+4. 새글 작성 : 모달창 만들기 
+5. 새글 5개? 작성 후
+6. 조회
+  - midCategory 로 이동 (연결 + 조회)
+  - 상세게시물 보기로 이동 (연결 + 조회)
+7. 삭제
+8. 수정

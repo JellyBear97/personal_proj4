@@ -13,8 +13,8 @@ const Router = () => {
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/" element={<SignIn />} />
         <Route path="/home" element={<Home />} />
-        <Route path="/my-space" element={<MySpace />} />
-        <Route path="/mid-category-space" element={<MidCatagorySpcae />} />
+        <Route path="/my-space/:ownerid" element={<MySpace />} />
+        <Route path="/mid-category-space/:" element={<MidCatagorySpcae />} />
         <Route path="/detail-post" element={<DetailPost />} />
       </Routes>
     </BrowserRouter>
