@@ -1,14 +1,37 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Layout from '../components/Layout/Layout';
 import { styled } from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '../firebase';
+import WritePost from '../components/WritePost/WritePost';
 
 const MySpace = () => {
   const navigate = useNavigate();
+  const [doesOpenModal, setDoesOpenModal] = useState(false);
+  // console.log('home에서 auth에 로그인 한 사람 정보가 들어있니?', auth);
+  const [authUid, setAuthUid] = useState(null);
+  useEffect(() => {
+    onAuthStateChanged(auth, user => {
+      console.log('user from layout', user); // 사용자 인증 정보가 변경될 때마다 해당 이벤트를 받아 처리합니다.
+      setAuthUid(user.uid);
+    });
+  }, []);
+
+  if (authUid === null) {
+    return <div>로딩중입니당........</div>;
+  }
+
   return (
-    <Layout>
+    <Layout authUid={authUid}>
+      {doesOpenModal && <WritePost setDoesOpenModal={setDoesOpenModal} />}
       <StWrapper>
-        <button>게시물추가</button>
+        <button
+          onClick={() => {
+            setDoesOpenModal(true);
+          }}>
+          게시물추가
+        </button>
         <h1>닉네임's My SPACE</h1>
         <StOwnerSection>myspace owner information</StOwnerSection>
         <section style={{ padding: '10px' }}>

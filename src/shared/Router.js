@@ -14,7 +14,7 @@ const Router = () => {
         <Route path="/" element={<SignIn />} />
         <Route path="/home" element={<Home />} />
         <Route path="/my-space/:ownerid" element={<MySpace />} />
-        <Route path="/mid-category-space/:" element={<MidCatagorySpcae />} />
+        <Route path="/mid-category-space/:id" element={<MidCatagorySpcae />} />
         <Route path="/detail-post" element={<DetailPost />} />
       </Routes>
     </BrowserRouter>

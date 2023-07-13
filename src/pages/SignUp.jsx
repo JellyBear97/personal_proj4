@@ -13,9 +13,10 @@ import useInput from '../hooks/useInput';
 import { styled } from 'styled-components';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase';
+import axios from 'axios';
 
 const SignUp = () => {
-  console.log('여기에는 로그인 한 사람 정보가 없어야하는데 ', auth);
+  // console.log('여기에는 로그인 한 사람 정보가 없어야하는데 ', auth);
   // state관리
   const [email, onChangeEmailHandler] = useInput();
   const [name, onChangeNameHandler] = useInput();
@@ -24,7 +25,7 @@ const SignUp = () => {
 
   const navigate = useNavigate();
 
-  const signUp = async () => {
+  const signUp = async name => {
     if (password !== rePassword) {
       alert('비번틀림 다시 입력하셈');
       return;
@@ -34,7 +35,19 @@ const SignUp = () => {
     }
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      console.log(userCredential);
+      console.log('one', userCredential.user.uid);
+      console.log('userCredential.user.email', userCredential.user.email);
+      // json-server로 보내줄 내용
+      const welcomeUser = {
+        id: userCredential.user.uid,
+        email: userCredential.user.email,
+        userName: name,
+        image: 'https://cdn-icons-png.flaticon.com/512/552/552721.png',
+        topCategory: [],
+      };
+      // json-server에도 일단 저장!
+      await axios.post(`${process.env.REACT_APP_SERVER_URL}/users`, welcomeUser);
+
       navigate('/home');
     } catch (error) {
       console.log(error);
@@ -46,7 +59,7 @@ const SignUp = () => {
       <form
         onSubmit={e => {
           e.preventDefault();
-          signUp();
+          signUp(name);
         }}>
         <input type="text" name={email} value={email} onChange={onChangeEmailHandler} placeholder="이메일 입력" required />
         <input type="text" name={name} value={name} onChange={onChangeNameHandler} placeholder="이름" required />
