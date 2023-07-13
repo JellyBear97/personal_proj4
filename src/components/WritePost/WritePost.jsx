@@ -4,6 +4,7 @@ import { styled } from 'styled-components';
 import { RxDotsHorizontal } from 'react-icons/rx';
 import { FaTrashCan } from 'react-icons/fa6';
 import '../../App.css';
+import CategoryDropDown from './CategoryDropDown';
 
 function WritePost({ authUid, setDoesOpenModal }) {
   /**
@@ -14,8 +15,6 @@ function WritePost({ authUid, setDoesOpenModal }) {
   const [imgBase64, setImgBase64] = useState(null);
   const [imgFile, setImgFile] = useState(null);
   const imgRef = useRef();
-  const [toggleMidCategory, setToggleMidCategory] = useState(false);
-  const [toggleTopCategory, setToggleTopCategory] = useState(false);
 
   const handleImgFileSelect = () => {
     const file = imgRef.current.files[0];
@@ -58,41 +57,8 @@ function WritePost({ authUid, setDoesOpenModal }) {
               <input ref={imgRef} type="file" name="file" id="file" onChange={handleImgFileSelect} style={{ display: 'none' }} />
             </StLabel>
           </figure>
-          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-            <DropDownWrapper>
-              {/* 선택된 카테고리 없으면 카테고리 선택표시, 있으면 선택한 카테고리 표시 */}
-              <DropDownHeader onClick={() => setToggleTopCategory(prev => !prev)}>카테고리 선택</DropDownHeader>
-              {toggleTopCategory && (
-                <>
-                  <TopCategoryList>
-                    <TopCategoryItem onClick={() => setToggleMidCategory(prev => !prev)}>
-                      많은 상위 태그들
-                      {toggleMidCategory && (
-                        <MidCategory
-                          onClick={e => {
-                            e.stopPropagation();
-                          }}>
-                          <MidListWrapper>
-                            <div></div>
-                            <MidCategoryList>
-                              <MidCategoryItem>하위 태그들</MidCategoryItem>
-                            </MidCategoryList>
-                          </MidListWrapper>
-                          <DropDownMidFooter>
-                            <span>+</span>
-                            <span>하위 카테고리 추가</span>
-                          </DropDownMidFooter>
-                        </MidCategory>
-                      )}
-                    </TopCategoryItem>
-                  </TopCategoryList>
-                  <DropDownTopFooter>
-                    <span>+</span>
-                    <span>상위 카테고리 추가</span>
-                  </DropDownTopFooter>
-                </>
-              )}
-            </DropDownWrapper>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            <CategoryDropDown></CategoryDropDown>
             <StTextarea placeholder="게시물에 대해 나의 생각을 채워주세요!"></StTextarea>
           </div>
         </StInputs>
@@ -192,26 +158,6 @@ const StLabel = styled.label`
     cursor: pointer;
   }
 `;
-const DropDownWrapper = styled.div`
-  border: 1px solid #ccc;
-  width: 250px;
-`;
-
-const DropDownHeader = styled.div``;
-const DropDownTopFooter = styled.div``;
-const DropDownMidFooter = styled.div``;
-
-const TopCategoryList = styled.ul``;
-const TopCategoryItem = styled.li`
-  cursor: pointer;
-`;
-
-const MidCategory = styled.div``;
-const MidListWrapper = styled.div``;
-const MidCategoryList = styled.ul``;
-const MidCategoryItem = styled.li`
-  cursor: pointer;
-`;
 
 const StTextarea = styled.textarea`
   box-sizing: border-box;
@@ -221,4 +167,6 @@ const StTextarea = styled.textarea`
   border-radius: 10px;
   outline: none;
   padding: 15px;
+
+  z-index: 8;
 `;
