@@ -1,15 +1,23 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { auth } from '../../firebase';
 import { signOut } from 'firebase/auth';
+import { getUser, getUsers } from '../../api/users';
+import { useQuery } from 'react-query';
 
-// 사용자 인증 정보
-import { onAuthStateChanged } from 'firebase/auth';
-
-const Header = () => {
+// 사용자 인증정보가 authUid에 담겨있음... (로그인 중인 사용자 Uid)
+const Header = ({ authUid }) => {
+  console.log('header에서의 authUid', authUid);
   const navigate = useNavigate();
   const [toggleUserNav, setToggleUserNav] = useState(false);
+  const { isLoading, isError, data: workingUser } = useQuery('user', () => getUser(authUid));
+
+  if (isLoading) {
+    return <div>일단막아 로딩중임</div>;
+  }
+  console.log('📌확인해줘  ㅠㅠㅠㅠ 잘들어오지?', workingUser);
+
   const logOut = async e => {
     e.preventDefault();
     await signOut(auth);
@@ -36,20 +44,20 @@ const Header = () => {
         onClick={() => {
           setToggleUserNav(prev => !prev);
         }}>
-        <img src="https://cdn-icons-png.flaticon.com/512/552/552721.png" alt="" />
+        <img src={workingUser.image} alt="" />
       </StUserImage>
       {toggleUserNav && (
         <StUserNav>
           <StUserInfo>
             <StUserImage>
-              <img src="https://cdn-icons-png.flaticon.com/512/552/552721.png" alt="" />
+              <img src={workingUser.image} alt="" />
             </StUserImage>
             <div>
-              <p>닉네임</p>
-              <p>@email_Id</p>
+              <p>{workingUser.userName}</p>
+              <p>@{workingUser.email.split('@')[0]}</p>
             </div>
           </StUserInfo>
-          <Link to={`/my-space`}>MY SPACE</Link>
+          <Link to={`/my-space/${workingUser.id}`}>MY SPACE</Link>
           <button onClick={logOut}>로그아웃</button>
         </StUserNav>
       )}
@@ -90,6 +98,7 @@ const StUserImage = styled.div`
   & img {
     width: 100%;
     height: 100%;
+    border-radius: 100%;
   }
 `;
 

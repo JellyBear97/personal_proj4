@@ -1,4 +1,27 @@
 {
+  "users": [
+    {
+      "id": "OxTcS2a8ojVR5PwvZhblqEtkS6H3",
+      "email": "olol@naver.com",
+      "userName": "이지",
+      "image": "https://cdn-icons-png.flaticon.com/512/552/552721.png",
+      "topCategory": []
+    },
+    {
+      "id": "ioEjbQRG6jgqzef1AJfMARd2XbZ2",
+      "email": "jdjd@naver.com",
+      "userName": "dlwl",
+      "image": "https://cdn-icons-png.flaticon.com/512/552/552721.png",
+      "topCategory": []
+    },
+    {
+      "id": "JVg8zyaCCjO9Cj6DENosecbmtoi2",
+      "email": "jieun2563@naver.com",
+      "userName": "이지은",
+      "image": "https://i.pinimg.com/564x/6a/4b/e4/6a4be4d5a3c97d309225480d4fc55088.jpg",
+      "topCategory": []
+    }
+  ],
   "posts": [],
   "comments": [
     {
@@ -6,6 +29,5 @@
       "body": "some comment",
       "postId": 1
     }
-  ],
-  "users": []
+  ]
 }
