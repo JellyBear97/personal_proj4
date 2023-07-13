@@ -27,8 +27,8 @@ const StOuter = styled.div`
 
 const StInner = styled.div`
   background-color: white;
-  width: 800px;
-  height: 500px;
+  width: 850px;
+  height: 600px;
   border-radius: 10px;
 
   display: flex;

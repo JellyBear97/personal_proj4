@@ -24,7 +24,7 @@ const MidCatagorySpcae = () => {
 
   return (
     <Layout authUid={authUid}>
-      {doesOpenModal && <WritePost setDoesOpenModal={setDoesOpenModal} />}
+      {doesOpenModal && <WritePost authUid={authUid} setDoesOpenModal={setDoesOpenModal} />}
       <StWrapper>
         <button
           onClick={() => {
