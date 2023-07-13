@@ -5,6 +5,7 @@ import { RxDotsHorizontal } from 'react-icons/rx';
 import { FaTrashCan } from 'react-icons/fa6';
 import '../../App.css';
 import CategoryDropDown from './CategoryDropDown';
+import CategoryModal from './CategoryModal';
 
 function WritePost({ authUid, setDoesOpenModal }) {
   /**

@@ -1,57 +1,70 @@
 import React, { useState } from 'react';
 import { styled } from 'styled-components';
+import CategoryModal from './CategoryModal';
 
 const CategoryDropDown = () => {
   const [toggleMidCategory, setToggleMidCategory] = useState(false);
   const [toggleTopCategory, setToggleTopCategory] = useState(false);
+  const [addtionTopCategory, setAdditionTopCategory] = useState(false);
+  const [additionMidCategory, setAdditionMidCategory] = useState(false);
   return (
-    <div style={{ boxSizing: 'border-box', width: '100%' }}>
-      {/* 선택된 카테고리 없으면 카테고리 선택표시, 있으면 선택한 카테고리 표시 */}
-      <DropDownHeader onClick={() => setToggleTopCategory(prev => !prev)} toggleMidCategory={toggleMidCategory}>
-        카테고리 선택
-      </DropDownHeader>
-      <DropDownWrapper>
-        {toggleTopCategory && (
-          <>
-            <TopCategoryWrapper>
-              <TopCategoryList>
-                <TopCategoryItem onClick={() => setToggleMidCategory(prev => !prev)}>많은 상위 태그들</TopCategoryItem>
-                {/* [ ] */}
-                <TopCategoryItem>많은 상위 태그들</TopCategoryItem>
-                <TopCategoryItem>많은 상위 태그들</TopCategoryItem>
-                <TopCategoryItem>많은 상위 태그들</TopCategoryItem>
-                <TopCategoryItem>많은 상위 태그들</TopCategoryItem>
-                {/* [ ] */}
-              </TopCategoryList>
-              {/* {!toggleMidCategory && ( */}
-              <DropDownTopFooter>
-                <span>+</span>
-                <span>상위 카테고리 추가</span>
-              </DropDownTopFooter>
-              {/* )} */}
-            </TopCategoryWrapper>
+    <>
+      {addtionTopCategory && <CategoryModal addtionTopCategory={addtionTopCategory} setAdditionTopCategory={setAdditionTopCategory}></CategoryModal>}
+      {additionMidCategory && <CategoryModal additionMidCategory={additionMidCategory} setAdditionMidCategory={setAdditionMidCategory}></CategoryModal>}
+      <div style={{ boxSizing: 'border-box', width: '100%' }}>
+        {/* 선택된 카테고리 없으면 카테고리 선택표시, 있으면 선택한 카테고리 표시 */}
+        <DropDownHeader onClick={() => setToggleTopCategory(prev => !prev)} toggleMidCategory={toggleMidCategory}>
+          카테고리 선택
+        </DropDownHeader>
+        <DropDownWrapper>
+          {toggleTopCategory && (
+            <>
+              <TopCategoryWrapper>
+                <TopCategoryList>
+                  <TopCategoryItem onClick={() => setToggleMidCategory(prev => !prev)}>많은 상위 태그들</TopCategoryItem>
+                  {/* [ ] */}
+                  <TopCategoryItem>많은 상위 태그들</TopCategoryItem>
+                  <TopCategoryItem>많은 상위 태그들</TopCategoryItem>
+                  <TopCategoryItem>많은 상위 태그들</TopCategoryItem>
+                  <TopCategoryItem>많은 상위 태그들</TopCategoryItem>
+                  {/* [ ] */}
+                </TopCategoryList>
+                {/* {!toggleMidCategory && ( */}
+                <DropDownTopFooter
+                  onClick={() => {
+                    setAdditionTopCategory(true);
+                  }}>
+                  <span>+</span>
+                  <span>상위 카테고리 추가</span>
+                </DropDownTopFooter>
+                {/* )} */}
+              </TopCategoryWrapper>
 
-            {toggleMidCategory && (
-              <MidCategoryWrapper>
-                <MidCategory>
-                  <MidCategoryList>
-                    <MidCategoryItem>하위 태그들</MidCategoryItem>
-                    {/* [ ] */}
-                    <MidCategoryItem>하위 태그들</MidCategoryItem>
-                    <MidCategoryItem>하위 태그들</MidCategoryItem>
-                    {/* [ ] */}
-                  </MidCategoryList>
-                  <DropDownMidFooter>
-                    <span>+</span>
-                    <span>하위 카테고리 추가</span>
-                  </DropDownMidFooter>
-                </MidCategory>
-              </MidCategoryWrapper>
-            )}
-          </>
-        )}
-      </DropDownWrapper>
-    </div>
+              {toggleMidCategory && (
+                <MidCategoryWrapper>
+                  <MidCategory>
+                    <MidCategoryList>
+                      <MidCategoryItem>하위 태그들</MidCategoryItem>
+                      {/* [ ] */}
+                      <MidCategoryItem>하위 태그들</MidCategoryItem>
+                      <MidCategoryItem>하위 태그들</MidCategoryItem>
+                      {/* [ ] */}
+                    </MidCategoryList>
+                    <DropDownMidFooter
+                      onClick={() => {
+                        setAdditionMidCategory(true);
+                      }}>
+                      <span>+</span>
+                      <span>하위 카테고리 추가</span>
+                    </DropDownMidFooter>
+                  </MidCategory>
+                </MidCategoryWrapper>
+              )}
+            </>
+          )}
+        </DropDownWrapper>
+      </div>
+    </>
   );
 };
 
