@@ -1,3 +1,13 @@
+/* 글쓰기 조건 및 요구사항
+  1. 'my space'는 일단은 누구나 접근할 수 있는 공간임. 
+    => 따라서 my space (메인, 하위 카테고리, 포스트 상세보기) 에서 다음 아래 사항은 auth확인 필요
+      (아래 사항들은 페이지 조회시 걸러서 보여줘야함!(선처리) + 혹여나 작성자가 아닌데도 보일 수 있으니후처리로 버튼 누르는 등의 행위시 경고창 띄어줘야함(후처리))
+        - my space main : 포스트 작성, 상위 카테고리 생성, 프로필 정보수정 , 카테고리 삭제
+        - 하위 카테고리 : 포스트 작성, 하위 카테고리 소개 수정, 카테고리 삭제
+        - 포스트 상세보기 : 포스트 수정, 포스트 삭제, 포스트 상세게시물 user memo CUD 
+        post를 작성하는 버튼은 user에게만 보여야하고,
+*/
+
 import React, { useRef, useState } from 'react';
 import Modal from './Modal';
 import { styled } from 'styled-components';
@@ -32,7 +42,15 @@ function WritePost({ authUid, setDoesOpenModal }) {
   return (
     <Modal>
       <StH3>게시물 추가</StH3>
-      <StForm action="">
+      <StForm
+        action=""
+        onSubmit={e => {
+          e.preventDefault();
+          if (e.currentTarget !== e.target) {
+            return;
+          }
+          console.log('확인✅');
+        }}>
         <StInputs>
           <figure style={{ position: 'relative' }}>
             {imgBase64 && (
@@ -59,7 +77,7 @@ function WritePost({ authUid, setDoesOpenModal }) {
             </StLabel>
           </figure>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-            <CategoryDropDown></CategoryDropDown>
+            <CategoryDropDown authUid={authUid}></CategoryDropDown>
             <StTextarea placeholder="게시물에 대해 나의 생각을 채워주세요!"></StTextarea>
           </div>
         </StInputs>

@@ -1,16 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 import CategoryModal from './CategoryModal';
 
-const CategoryDropDown = () => {
+const CategoryDropDown = ({ authUid }) => {
   const [toggleMidCategory, setToggleMidCategory] = useState(false);
   const [toggleTopCategory, setToggleTopCategory] = useState(false);
   const [addtionTopCategory, setAdditionTopCategory] = useState(false);
   const [additionMidCategory, setAdditionMidCategory] = useState(false);
+  // 서버에서 auth user정보의 categories를 state로 저장해줘.
+
+  // useEffect(() => {}, []);
   return (
     <>
-      {addtionTopCategory && <CategoryModal addtionTopCategory={addtionTopCategory} setAdditionTopCategory={setAdditionTopCategory}></CategoryModal>}
-      {additionMidCategory && <CategoryModal additionMidCategory={additionMidCategory} setAdditionMidCategory={setAdditionMidCategory}></CategoryModal>}
+      {addtionTopCategory && <CategoryModal authUid={authUid} addtionTopCategory={addtionTopCategory} setAdditionTopCategory={setAdditionTopCategory}></CategoryModal>}
+      {additionMidCategory && <CategoryModal authUid={authUid} additionMidCategory={additionMidCategory} setAdditionMidCategory={setAdditionMidCategory}></CategoryModal>}
       <div style={{ boxSizing: 'border-box', width: '100%' }}>
         {/* 선택된 카테고리 없으면 카테고리 선택표시, 있으면 선택한 카테고리 표시 */}
         <DropDownHeader onClick={() => setToggleTopCategory(prev => !prev)} toggleMidCategory={toggleMidCategory}>

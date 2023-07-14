@@ -32,8 +32,6 @@ const StInner = styled.div`
   height: 400px;
   border-radius: 10px;
   display: flex;
-  flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 60px 40px;
 `;
