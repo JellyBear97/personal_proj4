@@ -9,7 +9,7 @@ const getUsers = async () => {
 };
 
 const getUser = async authUid => {
-  const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/users`);
+  const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/users/`);
   const usersData = response.data;
   let workingUserdata;
   for (let i = 0; i < usersData.length; i++) {

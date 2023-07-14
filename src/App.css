@@ -1,0 +1,15 @@
+.trashIcon {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  border: 2px solid olive;
+  padding: 7px;
+  border-radius: 100%;
+  color: olive;
+  z-index: 2;
+  cursor: pointer;
+}
+
+.trashIcon:hover {
+  background-color: hotpink;
+}
