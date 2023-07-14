@@ -23,8 +23,7 @@ const MySpace = () => {
   }
 
   return (
-    // <Layout authUid={authUid}>
-    <>
+    <Layout authUid={authUid}>
       {doesOpenModal && <WritePost authUid={authUid} setDoesOpenModal={setDoesOpenModal} />}
       <StWrapper>
         <button
@@ -88,8 +87,7 @@ const MySpace = () => {
           </StTopCategoryList>
         </section>
       </StWrapper>
-      {/* </Layout> */}
-    </>
+    </Layout>
   );
 };
 

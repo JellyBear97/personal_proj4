@@ -19,7 +19,13 @@
       "email": "jieun2563@naver.com",
       "userName": "이지은",
       "image": "https://i.pinimg.com/564x/6a/4b/e4/6a4be4d5a3c97d309225480d4fc55088.jpg",
-      "topCategories": []
+      "topCategories": [
+        {
+          "topCategoryName": "내가만뜰엇워",
+          "id": "iEH8mzqKw",
+          "midCategory": []
+        }
+      ]
     }
   ],
   "posts": [],

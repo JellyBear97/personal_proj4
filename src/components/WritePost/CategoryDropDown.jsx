@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 import CategoryModal from './CategoryModal';
+import { getTopCategories } from '../../api/userTopCategories';
+import { useQuery } from 'react-query';
 
 const CategoryDropDown = ({ authUid }) => {
   const [toggleMidCategory, setToggleMidCategory] = useState(false);

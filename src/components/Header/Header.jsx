@@ -16,7 +16,7 @@ const Header = ({ authUid }) => {
   if (isLoading) {
     return <div>일단막아 로딩중임</div>;
   }
-  console.log('📌확인해줘  ㅠㅠㅠㅠ 잘들어오지?', workingUser);
+  // console.log('📌확인해줘  ㅠㅠㅠㅠ 잘들어오지?', workingUser);
 
   const logOut = async e => {
     e.preventDefault();

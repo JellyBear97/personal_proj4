@@ -3,12 +3,16 @@ import SmallModal from '../common/SmallModal';
 import useInput from '../../hooks/useInput';
 import { css, styled } from 'styled-components';
 import shortId from 'shortid';
-import { useMutation } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import { addTopCategory } from '../../api/userTopCategories';
+import { getUsers } from '../../api/users';
 
 const CategoryModal = ({ authUid, addtionTopCategory, setAdditionTopCategory, additionMidCategory, setAdditionMidCategory }) => {
   // console.log(addtionTopCategory, setAdditionTopCategory, additionMidCategory, setAdditionMidCategory);
   // console.log('authUid', authUid);
+  const { data } = useQuery('users', getUsers);
+  const user = data?.find(u => u.id === authUid);
+  console.log(user);
   const [topCategory, onChangeTopCategoryhandler] = useInput();
   const [midCategory, onChangeMidCategoryhandler] = useInput();
   const [midCategoryDesc, onChangeMidCategoryDeschandler] = useInput();
@@ -25,10 +29,17 @@ const CategoryModal = ({ authUid, addtionTopCategory, setAdditionTopCategory, ad
       id: shortId.generate(),
       midCategory: [],
     };
-    const totalData = { newTopCategory, authUid };
+    const newUser = {
+      ...user,
+      topCategories: [...user.topCategories, newTopCategory],
+    };
+    console.log('ddd', newUser);
+    const totalData = { newUser, authUid };
 
     topCategoryMutation.mutate(totalData);
   };
+
+  // onSubmitHandler는 form tag에 쓸 예정이'였음.'
   const onSubmitHandler = event => {
     event.preventDefault();
     console.log('✅');
@@ -37,33 +48,28 @@ const CategoryModal = ({ authUid, addtionTopCategory, setAdditionTopCategory, ad
   return (
     <SmallModal>
       {addtionTopCategory && (
-        <div
-          onClick={e => {
-            e.stopPropagation();
-          }}>
-          <StForm onSubmit={onSubmitHandler}>
-            <h3>새로운 상위 카테고리 만들기</h3>
-            <StInput type="text" value={topCategory} onChange={onChangeTopCategoryhandler} placeholder="새로 만들 상위 카테고리명을 입력하세요" />
-            <StButtons>
-              <button
-                type="button"
-                onClick={e => {
-                  setAdditionTopCategory(false);
-                  console.log('닫기');
-                }}>
-                닫기
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  console.log('다시찍기');
-                  makeNewTopCategory();
-                }}>
-                만들기
-              </button>
-            </StButtons>
-          </StForm>
-        </div>
+        <StForm>
+          <h3>새로운 상위 카테고리 만들기</h3>
+          <StInput type="text" value={topCategory} onChange={onChangeTopCategoryhandler} placeholder="새로 만들 상위 카테고리명을 입력하세요" />
+          <StButtons>
+            <button
+              type="button"
+              onClick={e => {
+                setAdditionTopCategory(false);
+                console.log('닫기');
+              }}>
+              닫기
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                console.log('다시찍기');
+                makeNewTopCategory();
+              }}>
+              만들기
+            </button>
+          </StButtons>
+        </StForm>
       )}
       {additionMidCategory && (
         <StForm
