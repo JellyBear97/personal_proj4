@@ -17,64 +17,8 @@ posts database에 다 담을 건데 user마다 같은 category이름으로 만�
 // 사용자 인증정보
 Auth는 이용중인 모든 페이지에 포함된 header에서 확인?가져오기!그럼 모든 페이지에서 로그인 중인 사용자가 누군지 알겠지... 원래는 사용자 컴퓨터에 있는 곳에서 가져오남..?
 
-{
-  "posts": [
-    {
-      "id": 1,
-      "ownerId": "typicode",
-      "date" : "",
-      "topCategoryId" :  1,
-      "topCategoryName" : "HOUSE" ,
-      "midCategoryId" : 1,
-      "midCategoryName": "bathroom",
-      "midCategoryDesc": "bathroom",
-      "postBody" : "",
-      "postImage" : "",
-      "postExtraBody" : [
-        {"id" : "", "postUserMemo" : ""},
-        {"id" : "", "postUserMemo" : ""}
-      ]
-    }
-  ],
-  "comments": [
-    {
-      "id": 1,
-      "body": "some comment",
-      "postId": 1,
-      "date": ""
-
-    }
-  ],
-  "users": [
-    {
-      "id": "uid",
-      "userName": "젤리곰",
-      "email": "jieun@jellybear.com",
-      "image": "https://i.pinimg.com/736x/53/7e/f5/537ef59499259ba707068742f91a10f8.jpg",
-      "topCategory": [
-        {
-          "topCategoryName": "HOUSE",
-          "id": "shortid",
-          "midCategory": [
-            {
-              "midCategoryName": "bathroom",
-              "id": "shortid",
-              "midCategoryDesc": "하하"
-            }
-          ]
-        }
-      ]
-    }
-  ]
-}
-
-
-
 
 user 기본 이미지 : https://cdn-icons-png.flaticon.com/512/552/552721.png
-
-
-
 
 
 1. 일단 회원가입시 user정보 json-server에 넣는 것부터 시작
@@ -124,3 +68,43 @@ user 기본 이미지 : https://cdn-icons-png.flaticon.com/512/552/552721.png
   1. top-category 선택 -> state 반영
       - 원래 있던 카테고리? 
   2. mid-category 선택 -> state 반영
+
+
+<DB구성>
+{
+  "posts": [
+    {
+      "id": 1,
+      "userId": "typicode",
+      "date" : "",
+      "topCategory" : {id : '', name: "HOUSE"},
+      "midCategory" : {id: '', name: "bathroom", Description: ""},
+      "postBody" : "",
+      "postImage" : "",
+    }
+  ],
+  "users": [
+    {
+      "id": "uid",
+      "userName": "젤리곰",
+      "email": "jieun@jellybear.com",
+      "image": "https://i.pinimg.com/736x/53/7e/f5/537ef59499259ba707068742f91a10f8.jpg",
+    }
+  ]
+  "topCategories" : [
+    {
+      "id": "shortid",
+      "userId" : "",
+      "topCategoryName": "HOUSE",
+    }
+  ]
+  "midCategory": [
+    {
+      "id": "shortid",
+      "userId" : "",
+      "topCategoryId" : ""
+      "midCategoryName": "bathroom",
+      "midCategoryDesc": "하하"
+    }
+  ]
+}
